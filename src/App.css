@@ -1,0 +1,66 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  color: white;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+  background-color: rgb(49, 9, 100);
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.header{
+  grid-auto-flow: row;
+  margin: 20px;
+  height: fit-content;
+}
+
+.main{
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: center;
+}
+
+h1{
+  height:min-content;
+}
+
+.todo-list{
+  list-style: none ;
+  display: grid;
+  gap: 5px;
+}
+
+.todo-list li{
+height:fit-content;
+padding: 10px;
+border: solid 1px white;
+}
+
+.todo-list li:hover{
+  background-color: rgb(72, 17, 145);
+}
+
+button{
+  color:rgb(49, 9, 100);
+  background-color: white;
+  height: 30px;
+  border: none;
+}
+
+button:hover{
+background-color: rgb(72, 17, 145);
+color:white;
+}
+
+input{
+  color: black;
+  width:min-content;
+  height: 30px;
+  text-align: center;
+  margin-top: 10px;
+}
