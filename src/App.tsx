@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 import "./App.css";
-import { Todo } from "./types";
+import { Todo } from "./types"
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const[query, setQuery]=useState('')
 
   useEffect(() => {
     fetch("http://localhost:4000/todos").then((resp) =>
@@ -19,15 +20,26 @@ function App() {
     setTodos(copyTodos);
   }
 
+  function searchTodo(){
+let filteredEmails=todos.filter(todo=> todo.content.toLowerCase().includes(query.toLowerCase()));
+return filteredEmails
+  }
+
   return (
     <div className="App">
       <header className="header">
         <h1>ToDo List✨</h1>
-        <input placeholder="Search a todo..."></input>
+        <input placeholder="Search a todo..."
+        onChange={(event)=>{
+          setQuery(event.target.value)
+          searchTodo()
+        }}
+        ></input>
       </header>
+
       <main className="main">
         <ul className="todo-list">
-          {todos.map((item) => (
+          {searchTodo().map((item) => (
             <li key={item.id}
             className={item.completed ? "completed" : "not-completed"}
             onClick={()=>{
