@@ -11,6 +11,14 @@ function App() {
       resp.json().then((todosFromServer) => setTodos(todosFromServer))
     );
   }, []);
+
+  function toggleTodo(item: Todo) {
+    const copyTodos = structuredClone(todos);
+    let match = copyTodos.find((todo) => todo.id === item.id);
+    match.completed = !item.completed;
+    setTodos(copyTodos);
+  }
+
   return (
     <div className="App">
       <header className="header">
@@ -20,7 +28,22 @@ function App() {
       <main className="main">
         <ul className="todo-list">
           {todos.map((item) => (
-            <li className={item.completed ? "completed" : "not-completed"}>
+            <li key={item.id}
+            className={item.completed ? "completed" : "not-completed"}
+            onClick={()=>{
+              toggleTodo(item)
+              fetch(`http://localhost:4000/todos/${item.id}`,{
+                method:'PATCH',
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  completed: !item.completed
+                })
+              })
+            }
+            }
+            >
               {item.content}
             </li>
           ))}
@@ -33,16 +56,16 @@ function App() {
               completed: false,
             };
             setTodos([...todos, newTodo]);
-            fetch('http://localhost:4000/todos', {
-              method: 'POST',
+            fetch("http://localhost:4000/todos", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
-              content: event.target.newTodo.value,
-              completed: false,
-              })
-            })
+                content: event.target.newTodo.value,
+                completed: false,
+              }),
+            });
             event.target.reset();
           }}
         >
