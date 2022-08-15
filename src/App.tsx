@@ -1,9 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
+import { Todo } from './types'
 
 function App() {
 
+  const [todos, setTodos]=useState<Todo[]>([])
+
+  useEffect(()=>{
+    fetch('http://localhost:4000/todos')
+    .then(resp=>resp.json()
+    .then(todosFromServer=> setTodos(todosFromServer)))
+  },[])
   return (
     <div className="App">
      <header className="header">
@@ -14,11 +22,9 @@ function App() {
       </header>
      <main className="main">
       <ul className="todo-list">
-      <li>This is a todo</li>
-      <li>This is a todo</li>
-      <li>This is a todo</li>
-      <li>This is a todo</li>
-      <li>This is a todo</li>
+        {todos.map(item=>
+        <li className={item.completed? 'completed': 'not-completed'}>{item.content}</li>
+          )}
       </ul>
       <form>
         <input placeholder="add a todo"></input>

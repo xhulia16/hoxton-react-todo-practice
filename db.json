@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "content": "watch a movie",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "content": "read a book",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "content": "create another todo",
+      "completed": true
+    },
+    {
+      "id": 4,
+      "content": "finish the exercise",
+      "completed": false
+    }
+  ]
+}
